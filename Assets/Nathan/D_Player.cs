@@ -12,16 +12,10 @@ public class D_Player : MonoBehaviour
     private int y;
 
     private PositionHolder positions;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        OffensivePlayer player = new OffensivePlayer();
-        PositionHolder positions = new PositionHolder();
-
-        
+        positions = new PositionHolder();
     }
-
-    // Update is called oncae per frame
     void Update()
     {
         UnityEngine.Vector3 coords = transform.position;
@@ -29,14 +23,11 @@ public class D_Player : MonoBehaviour
         y = (int)coords.y;
 
         positions.update(playerKey, isOffense, x, y, hasPuck);
+
+
         
+        var data = positions.get(playerKey);   //simple logging of class to ensure it works
+        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, HasPuck:{data.hasPuck}, IsOffense:{data.isoffense}");        
     }
 } 
 
-public class OffensiveTeamPlay : OffensivePlayer
-{
-    public void PickTeamPlay(int play)
-    {
-        
-    }
-}
