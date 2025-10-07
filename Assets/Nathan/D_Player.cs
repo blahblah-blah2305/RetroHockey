@@ -10,8 +10,6 @@ public class D_Player : MonoBehaviour
     private bool isOffense = true;
     private float x;
     private float y;
-
-
     private PositionHolder positions;
     private Movement movement;
     void Start()
@@ -22,16 +20,15 @@ public class D_Player : MonoBehaviour
     }
     void Update()
     {
-        UnityEngine.Vector3 coords = transform.position;
-        x = coords.x;
-        y = coords.y;
-        positions.update(playerKey, isOffense, x, y, hasPuck);
+        positions.update(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
+
+
 
 
         movement.Move(new Vector2(-1f, 0f));
 
         var data = positions.get(playerKey);   //simple logging of class to ensure it works
-        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, HasPuck:{data.hasPuck}, IsOffense:{data.isoffense}");        
+        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
     }
 } 
 

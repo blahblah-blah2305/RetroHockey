@@ -9,6 +9,8 @@ public class PositionHolder
         public bool isoffense; //offense = true, defense = false
         public float x;
         public float y;
+        public float velx;
+        public float vely;
         public bool hasPuck;
 
     }
@@ -31,9 +33,9 @@ public class PositionHolder
 
     private Dictionary<string, PositionData> positions = new Dictionary<string, PositionData>();
 
-    public void update(string key, bool isoffense, float x, float y, bool hasPuck)
+    public void update(string key, bool isoffense, float x, float y, float xv, float yv, bool hasPuck)
     {
-        positions[key] = new PositionData { isoffense = isoffense, x = x, y = y, hasPuck = hasPuck };
+        positions[key] = new PositionData { isoffense = isoffense, x = x, y = y, velx = xv, vely = yv, hasPuck = hasPuck };
     }
 
 

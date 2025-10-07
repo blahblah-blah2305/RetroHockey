@@ -6,7 +6,7 @@ public class Movement
     // you can stop faster, so adding fast decel.
     public float maxspeed = 5f;
     public float acceleration = 2f;
-    public float decceleration = 30f;
+    public float decceleration = 10f;
 
     private Rigidbody2D rb;
     
