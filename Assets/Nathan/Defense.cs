@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class NewMonoBehaviourScript : MonoBehaviour
 {
@@ -19,8 +20,23 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
 public class Information
 {
-    //takes in info
+    public class PositionData
+    {
+        public bool isoffense; //offense = true, defense = false
+        public int x;
+        public int y;
+        public bool hasPuck;
+
+    }
+    private Dictionary<string, PositionData> positions = new Dictionary<string, PositionData>();
+
+    public void update(string key, bool isoffense, int x, int y, bool hasPuck)
+    {
+        positions[key] = new PositionData { isoffense = isoffense, x = x, y = y, hasPuck = hasPuck };
+    }
 }
+
+
 
 public class OffensivePlayer
 {
