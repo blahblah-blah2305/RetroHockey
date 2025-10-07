@@ -33,6 +33,7 @@ public class Movement
         //code VERY loosely based off of https://discussions.unity.com/t/object-moving-and-acceleration/721314
     }
     public void setspeed(float speed) //function will be used for bc mode and for difficulty changes
+    //could possibly change this to acceleration and speed to be updated? we'll need to see how much harder it is when the game works. 
     {
         maxspeed = speed;
     }

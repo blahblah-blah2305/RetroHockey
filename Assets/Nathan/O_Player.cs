@@ -12,11 +12,13 @@ public class D_Player : MonoBehaviour
     private float y;
     private PositionHolder positions;
     private Movement movement;
+    private OffensivePlayer ologic;
     void Start()
     {
         positions = new PositionHolder();
         rb = GetComponent<Rigidbody2D>();
         movement = new Movement(rb);
+        ologic = new OffensivePlayer(playerKey, movement);
     }
     void Update()
     {
@@ -25,8 +27,13 @@ public class D_Player : MonoBehaviour
 
 
 
-        movement.Move(new Vector2(-1f, 0f));
+        ologic.DecideAction(positions);
 
+
+
+
+        //everything past this point is test code
+        //movement.Move(new Vector2(-1f, 0f));
         var data = positions.get(playerKey);   //simple logging of class to ensure it works
         Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
     }
