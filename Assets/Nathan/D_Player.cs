@@ -8,8 +8,8 @@ public class D_Player : MonoBehaviour
     public string playerKey;
     public bool hasPuck = false;
     public bool isOffense = true;
-    private int x;
-    private int y;
+    private float x;
+    private float y;
 
     private PositionHolder positions;
     void Start()
@@ -19,8 +19,8 @@ public class D_Player : MonoBehaviour
     void Update()
     {
         UnityEngine.Vector3 coords = transform.position;
-        x = (int)coords.x;
-        y = (int)coords.y;
+        x = coords.x;
+        y = coords.y;
 
         positions.update(playerKey, isOffense, x, y, hasPuck);
 
