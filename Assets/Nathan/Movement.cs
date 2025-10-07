@@ -1,19 +1,18 @@
 using UnityEditor.Callbacks;
 using UnityEngine;
 
-//requirures rigidbody, will automatically add it if its not there
-[RequireComponent(typeof(Rigidbody2D))]
-public class Movement : MonoBehaviour
+public class Movement
 {
     // you can stop faster, so adding fast decel.
     public float maxspeed = 5f;
-    public float acceleration = 10f;
+    public float acceleration = 2f;
     public float decceleration = 30f;
 
     private Rigidbody2D rb;
-    void Start()
+    
+    public Movement(Rigidbody2D rigidbody)
     {
-        rb = GetComponent<Rigidbody2D>();
+    rb = rigidbody;
     }
 
     public void Move(Vector2 input)
