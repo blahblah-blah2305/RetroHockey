@@ -60,10 +60,10 @@ public class PositionHolder : MonoBehaviour
         // turnover logic below
         if (!isoffense && hasPuck)
         {
+            Debug.Log("turnover, flipped players");
             foreach (var kvp in positions)
             {
                 kvp.Value.isoffense = !kvp.Value.isoffense;
-                Debug.Log("turnover, flipped players");
             }
         }
     }

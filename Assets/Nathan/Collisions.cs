@@ -79,7 +79,8 @@ public class Collisions
                 else
                 {
                     Debug.Log("big bad time for penalty");
-                    //will implement when reset logic is more advanced. also will go man down for 2 minutes. 
+                    //updatepuck(x,y) need to get coords of each faceoff spot for penalties.
+                    //will implement when reset logic is more advanced. also will go man down for 30 seconds. 
                 }
             }
 
