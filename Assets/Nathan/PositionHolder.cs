@@ -21,16 +21,17 @@ public class PositionHolder : MonoBehaviour
 
     public class PuckData
     {
-        public float puckx;
-        public float pucky;
+        public float puckx, pucky, puckxvel, puckyvel;
     }
 
     public PuckData puck = new PuckData();
 
-    public void updatepuck(float newpuckx, float newpucky)
+    public void updatepuck(float newpuckx, float newpucky, float pxvel, float pyvel)
     {
         puck.puckx = newpuckx;
         puck.pucky = newpucky;
+        puck.puckxvel = pxvel;
+        puck.puckyvel = pyvel;
     }
 
 
