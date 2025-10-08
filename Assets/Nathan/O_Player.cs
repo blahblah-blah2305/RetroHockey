@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class D_Player : MonoBehaviour
+public class O_Player : MonoBehaviour
 {
     public string playerKey;
     private Rigidbody2D rb;
@@ -10,39 +10,35 @@ public class D_Player : MonoBehaviour
     private bool isOffense = true;
     private float x;
     private float y;
-    private PositionHolder positions;
     private Movement movement;
     private OffensivePlayer ologic;
 
-    //private Collide 
     void Start()
     {
-        positions = new PositionHolder();
         rb = GetComponent<Rigidbody2D>();
         movement = new Movement(rb);
         ologic = new OffensivePlayer(playerKey, movement);
     }
     void Update()
     {
-        positions.update(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
+        PositionHolder.Instance.update(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
 
 
 
 
-        ologic.DecideAction(positions);
+        ologic.DecideAction(PositionHolder.Instance);
 
 
 
 
         //everything past this point is test code
         //movement.Move(new Vector2(-1f, 0f));
-        //var data = positions.get(playerKey);   //simple logging of class to ensure it works
-        //Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
+        var data = PositionHolder.Instance.get(playerKey);   //simple logging of class to ensure it works
+        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
+        Collisions.hit(this, collision);
     }
 } 
 
