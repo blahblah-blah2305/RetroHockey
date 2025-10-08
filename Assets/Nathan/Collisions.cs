@@ -48,31 +48,45 @@ public class Collisions
                 }
             }
 
-            
+
 
             Debug.Log($"Victim with: ({victimvelocity}), instagator velocity: ({instagatorvelocity}). magnitude of instagator: ({instagatorspeed}), magnitude of victim: ({victimspeed})");
 
+            //knockback logic here:
+            const float bounce = 1f / 2f; //bounce back 1/2 power, may update later
 
-
-            //time to add knockback here! this will take a while. will need to freeze player while getting moved back, otherwise they will just
-            //deselerate and they will stop quickly. also this will give them a chance to loose a puck on a small hit, but unlickley. on big hit,
-            //the puck will just go in the same direction the player went. 
-
+            Vector2 kbdirection = (otherplayer.rb.position - player.rb.position).normalized; //calculates direction of hit
+            Vector2 victimkb = kbdirection * instagatorspeed * bounce;
+            Vector2 instagaterkb = -kbdirection * instagatorspeed * bounce;
 
             //lowk, the offense or defense could probably smash an oponent against the wall and not get a penalty. oh well, 
             //i may implement that later (not the penalty the play). robbie if ur reading this forget you did, only i want to have the advantage. 
 
-
-
             if (totalforce > 5) //need to expirement with how big this number is.
             {
                 Debug.Log($"masssive hit! total force: ({totalforce})");
-                //if player has puck loose it for sure. 
+                //if player has puck loose it fobut make sure u pull first. also i've been using the sample scene so far, i just now pushed that if anyone wants to use it as well but its mainly for testing i guessr sure. 
 
+                //making it a bit arcady, increasing kb with a big hit :D
+                victimkb = victimkb * 1.5f;
+                instagaterkb = instagaterkb * 1.5f;
 
-                //if player doesnt have puck its a penalty.
+                if (instagatordata.hasPuck | victimdata.hasPuck)
+                {
+                    player.loosepuck();  //these functions have safe exiting, might as well use it for once
+                    otherplayer.loosepuck();
+                }
+                else
+                {
+                    Debug.Log("big bad time for penalty");
+                    //will implement when reset logic is more advanced. also will go man down for 2 minutes. 
+                }
             }
 
+            //finally applying kb
+            player.rb.AddForce(instagaterkb, ForceMode2D.Impulse);
+            otherplayer.rb.AddForce(victimkb, ForceMode2D.Impulse);
+            //was going to pause player when hit, this is actually way better. in this case, if a player turns around mid hit, they go FLYING
 
         }
     }

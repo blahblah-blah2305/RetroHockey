@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public class O_Player : MonoBehaviour
 {
     public string playerKey;
-    private Rigidbody2D rb;
+    public Rigidbody2D rb; //need to be publick for knockback function
     private bool hasPuck = false;
     private bool isOffense = true;
     private float x;
@@ -39,6 +39,14 @@ public class O_Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Collisions.hit(this, collision);
+    }
+
+    public void loosepuck()
+    {
+        if (!hasPuck) return;
+        Debug.Log(playerKey + "lost the puck");
+        hasPuck = false;
+        
     }
 } 
 
