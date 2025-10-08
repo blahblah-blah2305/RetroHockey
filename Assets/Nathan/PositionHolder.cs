@@ -53,7 +53,7 @@ public class PositionHolder : MonoBehaviour
     }
 
     //updates player position
-    public void update(string key, bool isoffense, float x, float y, float xv, float yv, bool hasPuck)
+    public void updateplayer(string key, bool isoffense, float x, float y, float xv, float yv, bool hasPuck)
     {
         positions[key] = new PositionData { isoffense = isoffense, x = x, y = y, velx = xv, vely = yv, hasPuck = hasPuck };
 
