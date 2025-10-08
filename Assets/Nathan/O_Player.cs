@@ -33,8 +33,8 @@ public class O_Player : MonoBehaviour
 
         //everything past this point is test code
         //movement.Move(new Vector2(-1f, 0f));
-        var data = PositionHolder.Instance.get(playerKey);   //simple logging of class to ensure it works
-        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
+        //var data = PositionHolder.Instance.get(playerKey);   //simple logging of class to ensure it works
+        //Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

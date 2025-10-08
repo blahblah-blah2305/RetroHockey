@@ -35,7 +35,7 @@ public class PositionHolder : MonoBehaviour
     }
 
 
-    private Dictionary<string, PositionData> positions = new Dictionary<string, PositionData>();
+    public Dictionary<string, PositionData> positions = new Dictionary<string, PositionData>();
 
 
     // ensures only one of this data structure exists, no duplicates
@@ -73,4 +73,18 @@ public class PositionHolder : MonoBehaviour
     {
         return positions[key];
     }
+
+    //finds player with puck
+    public PositionData playerwithpuck()
+    {
+        foreach (var playdata in positions.Values)
+        {
+            if (playdata.hasPuck)
+            {
+                return playdata;
+            }
+        }
+        return null;
+    }
+    
 }

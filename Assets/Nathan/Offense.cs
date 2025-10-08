@@ -22,33 +22,59 @@ public class OffensivePlayer
     public OffensivePlayer() { }
     public void DecideAction(PositionHolder info)
     {
-        var data = info.get(playerkey);
-
-
-        if (data.hasPuck)
+        var mydata = info.get(playerkey);
+        if (mydata == null)
         {
-
-            //example, shoot at goal
-            Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
-            Execute(PuckActions.Shoot, goalDirection);
-            
-
+            return; //stops stupid stinking race conditions i hate unity
         }
-        else
+        var allplayers = info.positions;
+
+        PositionHolder.PositionData target = null; //target is who we skate torwards
+                                                   //simple logic to find who to target, in this case its anyone who isnt us. 
+
+        foreach (var kvp in info.positions)
         {
-            //example, skate torwards puck (if puck location was implimented)
-            Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
-            Execute(PuckActions.Move, goalDirection);
+            if (kvp.Key != playerkey)
+            {
+                target = kvp.Value;
+                break;
+            }
         }
+
+        if (target != null) //unity fix ur race conditions (im the problem)
+        {
+            // found other player now we hit them :D
+            Vector2 direction = new Vector2(target.x - mydata.x, target.y - mydata.y).normalized;
+            Execute(PuckActions.Move, direction);
+        }
+        
+
+
+
+/* will put this back, just testing collisions
+                                if (mydata.hasPuck)
+                                {
+
+                                }
+                                else
+                                {
+                                    //normally else would be if the player doesnt have puck. rn just testing to make sure it skates torwards anyone else. 
+
+                                    //example play, keep comments for reference. 
+                                    //example, skate torwards puck (if puck location was implimented)
+                                    //Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
+                                    //Execute(PuckActions.Move, goalDirection);
+                                }
+                                */
 
     }
+
 
     public void Execute(PuckActions action, Vector2 direction = default)
     {
         switch (action)
         {
             case PuckActions.Move:
-                Debug.Log("moving");
                 movement.Move(direction);
                 break;
             case PuckActions.Shoot:
