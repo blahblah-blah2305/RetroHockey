@@ -13,6 +13,8 @@ public class D_Player : MonoBehaviour
     private PositionHolder positions;
     private Movement movement;
     private OffensivePlayer ologic;
+
+    //private Collide 
     void Start()
     {
         positions = new PositionHolder();
@@ -34,8 +36,13 @@ public class D_Player : MonoBehaviour
 
         //everything past this point is test code
         //movement.Move(new Vector2(-1f, 0f));
-        var data = positions.get(playerKey);   //simple logging of class to ensure it works
-        Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
+        //var data = positions.get(playerKey);   //simple logging of class to ensure it works
+        //Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+
     }
 } 
 

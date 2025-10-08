@@ -31,13 +31,13 @@ public class OffensivePlayer
             //example, shoot at goal
             Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
             Execute(PuckActions.Shoot, goalDirection);
-
+            
 
         }
         else
         {
             //example, skate torwards puck (if puck location was implimented)
-            Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized; 
+            Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
             Execute(PuckActions.Move, goalDirection);
         }
 
@@ -48,7 +48,7 @@ public class OffensivePlayer
         switch (action)
         {
             case PuckActions.Move:
-                Debug.Log("moving with puck");
+                Debug.Log("moving");
                 movement.Move(direction);
                 break;
             case PuckActions.Shoot:
