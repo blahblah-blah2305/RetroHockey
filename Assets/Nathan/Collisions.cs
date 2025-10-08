@@ -57,7 +57,7 @@ public class Collisions
 
             Vector2 kbdirection = (otherplayer.rb.position - player.rb.position).normalized; //calculates direction of hit
             Vector2 victimkb = kbdirection * instagatorspeed * bounce;
-            Vector2 instagaterkb = -kbdirection * instagatorspeed * bounce;
+            Vector2 instagaterkb = -kbdirection * instagatorspeed * bounce /2; //faster moving player should bounce back less. 
 
             //lowk, the offense or defense could probably smash an oponent against the wall and not get a penalty. oh well, 
             //i may implement that later (not the penalty the play). robbie if ur reading this forget you did, only i want to have the advantage. 
