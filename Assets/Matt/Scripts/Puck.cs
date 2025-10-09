@@ -4,8 +4,14 @@ public class Puck : MonoBehaviour
 {
 	public Rigidbody2D rigidbody2d;
 	public float puck_speed;
+	// Tranform owner;
+	Vector2 holdOffset = new Vector2(0.35f, 0f);
 	private PositionHolder positionHolder;
 
+
+	void Awake(){
+		// rigidbody2d = GetComponent<rigidbody2d>();
+	}
     void Update()
     {
 		//keeps track of puck position and velocity
