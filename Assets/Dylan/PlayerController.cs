@@ -4,8 +4,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private MovementDriver movementDriver; // for dragging into the inspector 
+    [SerializeField] private Movement movement; // for dragging into the inspector 
     [SerializeField] private bool useHumanInput = true; // this will help with ai or human you just select the box or don't
+    [SerializeField] Rigidbody2D rb;
     private StickLogic stick; // passing, shooting
     private PlayerIntent intent = new PlayerIntent(); // prevents null ref 
     private IInputSource source; // where is the input coming from
@@ -16,10 +17,12 @@ public class PlayerController : MonoBehaviour
 
     void Awake(){
             stick = new StickLogic(); 
+            rb = GetComponent<Rigidbody2D>();
 
     }
 
     void Start(){
+        movement = new Movement(rb);
         if(useHumanInput) SetInputSource(new HumanInput()); // player controlled by user
         // else use new AiInput
     }
@@ -36,7 +39,7 @@ public class PlayerController : MonoBehaviour
         if(intent.shotPressed) stick.performShot(intent.chargeTime, intent.aim);
     }
     void FixedUpdate(){
-        movementDriver.SetMove(intent.move); // gets the key input to move 
+        movement.Move(intent.move); // gets the key input to move 
 
     }
 

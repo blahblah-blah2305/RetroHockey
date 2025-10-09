@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StickBehaviour : MonoBehaviour
+public class StickBehaviour : MonoBehaviour // for getting the puck
 {
     public PlayerController owner;
 
