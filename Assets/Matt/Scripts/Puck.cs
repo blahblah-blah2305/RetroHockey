@@ -35,6 +35,8 @@ public class Puck : MonoBehaviour
 		rigidbody2d.MovePosition(new Vector2(x, y));
 		
 	}
-	
+	public void ApplyImpulse(Vector2 impulse){
+		rigidbody2d.AddForce(impulse, ForceMode2D.Impulse);
+	}
 
 }

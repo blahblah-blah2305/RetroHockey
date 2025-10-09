@@ -4,9 +4,9 @@ using UnityEngine;
 public class Movement
 {
     // you can stop faster, so adding fast decel.
-    public float maxspeed = 5f;
-    public float acceleration = 2f;
-    public float decceleration = 10f;
+    public float maxspeed = 20f;
+    public float acceleration = 12f;
+    public float decceleration = 14f;
 
     private Rigidbody2D rb;
     
