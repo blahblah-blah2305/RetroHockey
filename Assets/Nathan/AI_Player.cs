@@ -21,18 +21,20 @@ public class O_Player : MonoBehaviour
     }
     void Update()
     {
-        PositionHolder.Instance.update(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
+        PositionHolder.Instance.updateplayer(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
 
-
-
-
-        ologic.DecideAction(PositionHolder.Instance);
-
-
-
-
+        if (isOffense)
+        {
+            ologic.DecideAction(PositionHolder.Instance);
+        }
+        else
+        {
+            //dlogic.decideaction
+            //use this to move around movement.Move(new Vector2(-1f, 0f));
+        }
+        
         //everything past this point is test code
-        //movement.Move(new Vector2(-1f, 0f));
+       
         //var data = PositionHolder.Instance.get(playerKey);   //simple logging of class to ensure it works
         //Debug.Log($"{playerKey} X:{data.x}, Y:{data.y}, puck?:{data.hasPuck}, is offense?:{data.isoffense},xvel:{data.velx},yvel:{data.vely}");        
     }
@@ -46,7 +48,7 @@ public class O_Player : MonoBehaviour
         if (!hasPuck) return;
         Debug.Log(playerKey + "lost the puck");
         hasPuck = false;
-        
+
     }
 } 
 
