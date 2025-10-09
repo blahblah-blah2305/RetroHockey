@@ -9,6 +9,7 @@ public class StickLogic
 
     public void performPass(Vector2 aimDir){
         if(current == null) return;
+        current.ReleaseOwner();
         new Pass().Execute(current, aimDir.normalized);
         ReleasePuck();
     }
@@ -16,6 +17,8 @@ public class StickLogic
     // will obviously change it to closest player and in the aim cone of some degree when the game is at least working
         if(current == null) return;
         // maybe a threshold
+
+        current.ReleaseOwner();
         Shot s = null; 
         if(chargeTime >= 0.2f) s = new SlapShot(chargeTime);
         if(chargeTime <= 0.19) s = new WristShot();

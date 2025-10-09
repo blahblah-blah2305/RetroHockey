@@ -6,11 +6,17 @@ public class StickBehaviour : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other){
         var puck = other.GetComponent<Puck>();
-        if(puck) owner.AcquirePuck(puck); // need to make this stick to the player. Honestly I dont know how to do this something with transform
+        if(!puck) return;
+        
+        puck.SetOwner(owner.transform);
+        owner.AcquirePuck(puck);
     }
 
     void OnTriggerExit2D(Collider2D other) {
-        if (other.GetComponent<Puck>()) owner.ReleasePuck(); 
+        var puck = other.GetComponent<Puck>();
+        if(!puck) return; 
+            puck.ReleaseOwner();
+            owner.ReleasePuck();
     }
 
 }

@@ -3,17 +3,27 @@ using UnityEngine;
 public class Puck : MonoBehaviour
 {
 	public Rigidbody2D rigidbody2d;
+	public Collider2D col;
 	public float puck_speed;
-	// Tranform owner;
-	Vector2 holdOffset = new Vector2(0.35f, 0f);
+	Transform owner;
+	Vector2 holdOffset = new Vector2(0.5f, 0.5f);
 	private PositionHolder positionHolder;
 
 
 	void Awake(){
-		// rigidbody2d = GetComponent<rigidbody2d>();
+		rigidbody2d = GetComponent<Rigidbody2D>();
+		col = GetComponent<Collider2D>();
 	}
     void Update()
     {
+		 if (owner == null) return;
+  
+        Vector2 ahead = (Vector2)owner.right;            
+        Vector2 pos = (Vector2)owner.position + ahead.normalized * holdOffset.x + Vector2.up * holdOffset.y;
+        transform.position = pos;
+
+        rigidbody2d.linearVelocity = Vector2.zero;                       // freeze motion while held
+        rigidbody2d.angularVelocity = 0f;
 		//keeps track of puck position and velocity
         PositionHolder.Instance.updatepuck(rigidbody2d.position.x, rigidbody2d.position.y, rigidbody2d.linearVelocity.x, rigidbody2d.linearVelocity.y);
     }
@@ -45,4 +55,8 @@ public class Puck : MonoBehaviour
 		rigidbody2d.AddForce(impulse, ForceMode2D.Impulse);
 	}
 
+public void SetOwner(Transform t){ owner = t; rigidbody2d.bodyType = RigidbodyType2D.Kinematic; if(col) col.isTrigger = true; }
+public void ReleaseOwner(){ owner = null; rigidbody2d.bodyType = RigidbodyType2D.Dynamic; if(col) col.isTrigger = false;}
+
 }
+

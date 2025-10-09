@@ -19,7 +19,7 @@ public class HumanInput : IInputSource // should do the same thing for AI
              aim = (move == Vector2.zero ? Vector2.right : move.normalized),
              passPressed = Input.GetKeyDown(KeyCode.P),
              shotPressed = Input.GetKeyDown(KeyCode.Space),
-             chargeTime = 0f
+             chargeTime = 1f
         };
     }
 }
