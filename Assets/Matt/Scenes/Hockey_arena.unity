@@ -1291,6 +1291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Puck
   rigidbody2d: {fileID: 1111649387}
+  col: {fileID: 0}
   puck_speed: 0
 --- !u!50 &1111649387
 Rigidbody2D:
@@ -1668,7 +1669,7 @@ SpriteRenderer:
   m_Size: {x: 1.1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &1244752465
@@ -2226,7 +2227,7 @@ SpriteRenderer:
   m_Size: {x: 1.1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1742197419
@@ -2469,6 +2470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1828299954}
   - component: {fileID: 1828299953}
+  - component: {fileID: 1828299955}
   m_Layer: 0
   m_Name: Stadium
   m_TagString: Untagged
@@ -2553,6 +2555,28 @@ Transform:
   - {fileID: 152723972}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1828299955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828299952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e9da5af09eca164283bb06b67adb670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LeftDefense
+  Speed: 5
+  CheckDamage: 0.7
+  HasPuck: 0
+  tChange: 0
+  RandomX: 0
+  RandomY: 0
+  MinX: -8
+  MaxX: 4
+  MinY: -4
+  MaxY: 4
 --- !u!1 &1858305526
 GameObject:
   m_ObjectHideFlags: 0
