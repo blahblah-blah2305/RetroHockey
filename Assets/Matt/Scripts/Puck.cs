@@ -35,7 +35,7 @@ public class Puck : MonoBehaviour
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.tag == "Playerscore")
+		if (collision.gameObject.tag == "Player_score")
 		{
 			updatepuck(0, 0);
 		}
