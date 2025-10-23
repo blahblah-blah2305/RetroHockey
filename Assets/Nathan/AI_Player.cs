@@ -12,12 +12,14 @@ public class O_Player : MonoBehaviour
     private float y;
     private Movement movement;
     private OffensivePlayer ologic;
+    private StickLogic stick;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         movement = new Movement(rb);
-        ologic = new OffensivePlayer(playerKey, movement); // movement shouldnt be controlled here
+        ologic = new OffensivePlayer(playerKey, movement, stick); // movement shouldnt be controlled here
+        stick = new StickLogic();
     }
     void Update()
     {
@@ -25,7 +27,7 @@ public class O_Player : MonoBehaviour
 
         if (isOffense)
         {
-            ologic.DecideAction(PositionHolder.Instance);
+            ologic.DecideAction(PositionHolder.Instance, Time.deltaTime);
         }
         else
         {
@@ -43,10 +45,19 @@ public class O_Player : MonoBehaviour
         Collisions.hit(this, collision);
     }
 
+    public void getpuck(Puck p)
+    {
+        if (hasPuck) return;
+        stick.AcquirePuck(p);
+        hasPuck = true;
+        Debug.Log(playerKey + " got the puck");
+    }
+
     public void loosepuck()
     {
         if (!hasPuck) return;
-        Debug.Log(playerKey + "lost the puck");
+        Debug.Log(playerKey + " lost the puck");
+        stick.ReleasePuck();
         hasPuck = false;
 
     }
