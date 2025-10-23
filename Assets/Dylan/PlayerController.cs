@@ -35,8 +35,8 @@ public class PlayerController : MonoBehaviour
             Vector2 target = (Vector2)transform.position + intent.aim.normalized * 3f; // this is just basic for now so we can run it
             stick.performPass(target);
         } 
-        if(intent.move.x > 0.01f) sr.flipX = false;
-        if(intent.move.x < -0.01f) sr.flipX = true;
+        if(intent.move.x > 0.01f) sr.flipX = true;
+        if(intent.move.x < -0.01f) sr.flipX = false;
 
 
         if(intent.shotPressed){

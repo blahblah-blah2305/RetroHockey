@@ -6,7 +6,7 @@ public class Puck : MonoBehaviour
 	public Collider2D col;
 	public float puck_speed;
 	Transform owner;
-	Vector2 holdOffset = new Vector2(0.5f, 0.5f);
+	Vector2 holdOffset = new Vector2(0.4f, -0.4f);
 	private PositionHolder positionHolder;
 
 

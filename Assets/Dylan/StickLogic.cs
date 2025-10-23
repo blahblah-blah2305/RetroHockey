@@ -47,7 +47,7 @@ public abstract class Shot{
 }
 public class WristShot : Shot{
     public override void Execute(Puck p, Vector2 dir){
-        float power = 15f;
+        float power = 10f;
         p.ApplyImpulse(power * dir);
     }
 }

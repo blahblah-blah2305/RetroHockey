@@ -53,6 +53,8 @@ public static SMScript I {get; private set; }
     {
         musicSrc.volume = background_volume;
         musicSrc.clip = background_clip;
+
+        musicSrc.time = 50f;
         musicSrc.Play();
     }
 
