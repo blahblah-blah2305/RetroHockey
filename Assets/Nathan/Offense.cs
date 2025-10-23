@@ -22,30 +22,107 @@ public class OffensivePlayer
     public OffensivePlayer() { }
     public void DecideAction(PositionHolder info)
     {
+        if (movement == null) Debug.LogError(playerkey + ": movement is NULL!");
+        if (stickLogic == null) Debug.LogError(playerkey + ": stickLogic is NULL!");    
         var mydata = info.get(playerkey);
         if (mydata == null)
         {
             return; //stops stupid stinking race conditions i hate unity
         }
-        var allplayers = info.positions;
 
-        PositionHolder.PositionData target = null; //target is who we skate torwards
-                                                   //simple logic to find who to target, in this case its anyone who isnt us. 
+        Vector2 myposition = new Vector2(mydata.x, mydata.y);
 
+        if (prepshot || prepass) //keep moving if we are preparing to shoot or pass. 
+        {
+            movement.Move(actionvector);
+            actiontimer -= deltaTime;
+            if (actiontimer <= 0f)
+            {
+                if (prepshot)
+                {
+                    prepshot = false;
+                    stickLogic.performShot(0.1f, actionvector); // Shoot!   
+                }
+                else
+                {
+                    prepass = false;
+                    stickLogic.performPass(actionvector);
+                }
+
+            }
+            return;
+        }
+
+        if (mydata.hasPuck) //ai player has puck
+        {
+            decideonballaction(mydata, info);
+        }
+        else //ai player does not have puck
+        {
+            decideoffballaction(mydata, info);
+        }
+
+    }
+
+
+
+    private void decideonballaction(PositionHolder.PositionData mydata, PositionHolder info)
+    {
+        Vector2 myposition = new Vector2(mydata.x, mydata.y);
+        float distanceToGoal = Vector2.Distance(myposition, targetGoalPosition);
+        Vector2 directionToGoal = (targetGoalPosition - myposition).normalized;
+
+        //shoot if close enough
+        if (distanceToGoal < 2f) // Arbitrary "shooting range"
+        {
+            Execute(PuckActions.Shoot, directionToGoal);
+            return; 
+        }
+
+        //pass if a teamate is close enough. 
+        PositionHolder.PositionData passTarget = null;
         foreach (var kvp in info.positions)
         {
-            if (kvp.Key != playerkey)
+            if (kvp.Key == playerkey) continue; // Skip self
+
+            // TODO: Add team-checking logic here!
+            Vector2 otherPlayerPos = new Vector2(kvp.Value.x, kvp.Value.y);
+            float targetDistToGoal = Vector2.Distance(otherPlayerPos, targetGoalPosition);
+
+            if (targetDistToGoal < distanceToGoal)
             {
-                target = kvp.Value;
+                passTarget = kvp.Value;
                 break;
             }
         }
 
-        if (target != null) //unity fix ur race conditions (im the problem)
+        if (passTarget != null)
         {
-            // found other player now we hit them :D
-            Vector2 direction = new Vector2(target.x - mydata.x, target.y - mydata.y).normalized;
-            Execute(PuckActions.Move, direction);
+            Vector2 passTargetPosition = new Vector2(passTarget.x, passTarget.y);
+            Execute(PuckActions.Pass, passTargetPosition); // Pass target *position*
+            return;
+        }
+        
+        //skating torwards goal
+        Debug.Log(playerkey + " moving towards goal");
+        Execute(PuckActions.Move, directionToGoal);
+    }
+    
+    private void decideoffballaction(PositionHolder.PositionData mydata, PositionHolder info)
+    {
+        Vector2 myposition = new Vector2(mydata.x, mydata.y);
+        var puckCarrier = info.playerwithpuck();
+        if (puckCarrier == null)
+        {
+            // no o player has the puck, its prob being passed. 
+            if (info.puck != null)
+            {
+                Vector2 puckypos = new Vector2(info.puck.puckx, info.puck.pucky);
+                Vector2 direction2puck = (puckypos - myposition).normalized;
+
+                //move in that new dir
+                movement.Move(direction2puck);
+            }
         }
         
 

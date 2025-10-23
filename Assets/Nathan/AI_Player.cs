@@ -16,16 +16,25 @@ public class O_Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        stick = new StickLogic();
         movement = new Movement(rb);
-        ologic = new OffensivePlayer(playerKey, movement); // movement shouldnt be controlled here
+        ologic = new OffensivePlayer(playerKey, movement, stick); // movement shouldnt be controlled here
     }
     void Update()
     {
         PositionHolder.Instance.updateplayer(playerKey, isOffense, rb.position.x, rb.position.y, rb.linearVelocity.x, rb.linearVelocity.y, hasPuck);
 
+         if (ologic == null)
+        {
+            return;
+        }
+
         if (isOffense)
         {
-            ologic.DecideAction(PositionHolder.Instance);
+            if (ologic == null) Debug.LogError("Ologic is NULL!");
+            if (PositionHolder.Instance == null) Debug.LogError("PositionHolder.Instance is NULL!");
+
+            ologic.DecideAction(PositionHolder.Instance, Time.deltaTime);
         }
         else
         {
