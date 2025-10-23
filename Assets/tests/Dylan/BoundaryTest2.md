@@ -1,14 +1,15 @@
-# 🧱 Boundary Test 2 — BT-002: PlayerController Zone Limits
+# Boundary Test 2 — BT-002: Player Goal Collision
 
 **Goal:**  
-Confirm that the PlayerController script correctly prevents the player from moving outside the allowed rink area.
+Ensure that the player cannot enter or pass through the goal area.
 
 **Rationale:**  
-This verifies that position clamping or movement boundaries inside the PlayerController work as intended — the player should stop at the edge and not slide out of bounds.
+This verifies that PlayerController correctly prevents the player from moving into restricted zones like the goal crease, using collider interactions or position limits.
 
 **Expected Result:**  
-When automatic movement pushes the player toward the rink edges, their position remains within the legal min/max X and Y values set in PlayerController.
+When the player moves or is automatically pushed toward either goal, the player stops at the goal boundary and cannot overlap or clip inside it.
 
 **Outcome:**  
-✅ **PASS** — Player movement correctly stopped at rink edges with no boundary violations detected.
+**PASS** — Player movement was blocked by the goal colliders and did not enter the restricted goal area.
+
 
