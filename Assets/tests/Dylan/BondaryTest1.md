@@ -22,10 +22,10 @@ Boundary handling and collider logic
 | Step | Test | Expected Result | Pass/Fail |
 |------|------------|-----------------|--------------------|
 | 1 | **Drive Left Wall** — Move left until reaching `MinX`. | PlayerController reaches left boundary. | Reaches `MinX` within 3 seconds. |
-| 2 | **Axis Stop (Left)** — Check X velocity after contact. | X-velocity ≈ 0.|
-| 3 | **Right Wall** — Move right until reaching `MaxX` | Same as left. |
-| 4 | **Bottom Wall** — Move down until reaching `MinY`| No sticking at bottom.|
-| 5 | **Top Wall** — Move up until reaching `MaxY`| No sticking at top.|
+| 2 | **Axis Stop (Left)** — Check X velocity after contact. | X-velocity ≈ 0.| Pass
+| 3 | **Right Wall** — Move right until reaching `MaxX` | Same as left. | Pass
+| 4 | **Bottom Wall** — Move down until reaching `MinY`| No sticking at bottom.| Pass
+| 5 | **Top Wall** — Move up until reaching `MaxY`| No sticking at top.| Pass
 | 6 | **Summary** — All boundaries tested. | 4/4 boundaries passed. | All checks pass. |
 
 ---
