@@ -10,5 +10,5 @@ Confirms that wall colliders and the player’s rigidbody correctly enforce game
 When automatically nudged toward all four edges (left, right, top, bottom), the player always remains within the legal rink area.
 
 **Outcome:**  
-✅ **PASS** — Player position stayed inside bounds on all sides.
+**PASS** — Player position stayed inside bounds on all sides.
 
