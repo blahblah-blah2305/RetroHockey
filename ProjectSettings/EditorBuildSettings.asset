@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Matt/Scenes/main.unity
+    guid: 9517dcee9c33a8ce5ac75032c99c3a0e
+  - enabled: 1
+    path: Assets/Matt/Scenes/FreePlay.unity
+    guid: b07406db5533888cdb8c9a33acfd88fe
+  - enabled: 1
+    path: Assets/Matt/Scenes/Stanly1.unity
+    guid: b19aa12177daad3498954506e8669db4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
