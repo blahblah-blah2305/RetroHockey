@@ -25,7 +25,14 @@ public class Puck : MonoBehaviour
         rigidbody2d.linearVelocity = Vector2.zero;                       // freeze motion while held
         rigidbody2d.angularVelocity = 0f;
 		//keeps track of puck position and velocity
-        PositionHolder.Instance.updatepuck(rigidbody2d.position.x, rigidbody2d.position.y, rigidbody2d.linearVelocity.x, rigidbody2d.linearVelocity.y);
+        if (positionHolder != null)
+        {
+            positionHolder.updatepuck(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, GetComponent<Rigidbody2D>().linearVelocity.x, GetComponent<Rigidbody2D>().linearVelocity.y);
+        }
+        else if (PositionHolder.Instance != null)
+        {
+            PositionHolder.Instance.updatepuck(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, GetComponent<Rigidbody2D>().linearVelocity.x, GetComponent<Rigidbody2D>().linearVelocity.y);
+        }
     }
 
     public void SetPositionHolder(PositionHolder holder)
