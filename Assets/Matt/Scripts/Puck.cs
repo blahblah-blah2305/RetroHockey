@@ -10,6 +10,8 @@ public class Puck : MonoBehaviour
 	private PositionHolder positionHolder;
 	public SpriteRenderer puckSR;
 
+    public Transform CurrentOwner => owner;
+
 
 	void Awake(){
 		rigidbody2d = GetComponent<Rigidbody2D>();
@@ -45,13 +47,12 @@ void Update()
     else if (PositionHolder.Instance != null)
     {
         PositionHolder.Instance.updatepuck(rigidbody2d.position.x, rigidbody2d.position.y, rigidbody2d.linearVelocity.x, rigidbody2d.linearVelocity.y);
-    }
-}
-
-    public void SetPositionHolder(PositionHolder holder)
-	{
-		positionHolder = holder;
 	}
+}
+    public void SetPositionHolder(PositionHolder holder)
+    {
+        positionHolder = holder;
+    }
 
 	private void OnCollisionEnter2D(Collision2D collision)
 	{
@@ -67,18 +68,49 @@ void Update()
 		}
 	}
 
-	//this should be the function that resets the puck position.
-	public void updatepuck(float x, float y)
-	{
-		rigidbody2d.MovePosition(new Vector2(x, y));
-		
-	}
-	public void ApplyImpulse(Vector2 impulse){
-		rigidbody2d.AddForce(impulse, ForceMode2D.Impulse);
-	}
+    public void updatepuck(float x, float y)
+    {
+        rigidbody2d.MovePosition(new Vector2(x, y));
+    }
 
-public void SetOwner(Transform t){ owner = t; rigidbody2d.bodyType = RigidbodyType2D.Kinematic; if(col) col.isTrigger = true; }
-public void ReleaseOwner(){ owner = null; rigidbody2d.bodyType = RigidbodyType2D.Dynamic; if(col) col.isTrigger = false;}
+    public void ApplyImpulse(Vector2 impulse)
+    {
+        rigidbody2d.AddForce(impulse, ForceMode2D.Impulse);
+    }
 
+    public void SetOwner(Transform t)
+    {
+        owner = t;
+
+        Collider2D puckCollider = GetComponent<Collider2D>();
+        Collider2D ownerCollider = owner.GetComponent<Collider2D>();
+
+        if (puckCollider != null && ownerCollider != null)
+        {
+            Physics2D.IgnoreCollision(puckCollider, ownerCollider, true);
+        }
+
+        rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+        if (col) col.isTrigger = true;
+    }
+
+    public void ReleaseOwner()
+    {
+        if (owner != null)
+        {
+            Collider2D puckCollider = GetComponent<Collider2D>();
+            Collider2D ownerCollider = owner.GetComponent<Collider2D>();
+
+            if (puckCollider != null && ownerCollider != null)
+            {
+                Physics2D.IgnoreCollision(puckCollider, ownerCollider, false);
+            }
+
+            transform.SetParent(null);
+            owner = null;
+
+            rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+            if (col) col.isTrigger = false;
+        }
+    }
 }
-

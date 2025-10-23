@@ -43,10 +43,18 @@ public class PlayerController : MonoBehaviour
             stick.performShot(intent.chargeTime, intent.aim);
         } 
     }
-    void FixedUpdate(){
+    void FixedUpdate()
+    {
         movement.Move(intent.move); // gets the key input to move 
 
     }
+    
+
+    // added this to allow my defense to use the puck status - Robbie
+    public bool GetHasPuckStatus()
+    {
+        return stick.HasPuck();
+    } 
 
 
 
@@ -55,10 +63,13 @@ public class PlayerController : MonoBehaviour
     public void AcquirePuck(Puck p){
         stick.AcquirePuck(p);
     }
-    public void ReleasePuck(){
+    public void ReleasePuck()
+    {
         stick.ReleasePuck();
         SMScript.I.PuckHit();
     }
+    
+
 
 }
 

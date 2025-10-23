@@ -12,11 +12,11 @@ public class StickBehaviour : MonoBehaviour // for getting the puck
         owner.AcquirePuck(puck);
     }
 
- //   void OnTriggerExit2D(Collider2D other) {
-    //    var puck = other.GetComponent<Puck>();
+   // void OnTriggerExit2D(Collider2D other) {
+     //   var puck = other.GetComponent<Puck>();
     //    if(!puck) return; 
     //        puck.ReleaseOwner();
-    //        owner.ReleasePuck();
- //   }
+   //         owner.ReleasePuck();
+  //  }
 
 }

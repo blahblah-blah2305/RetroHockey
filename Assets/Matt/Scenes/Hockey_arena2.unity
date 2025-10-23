@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &1765759
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.3280816
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.501501
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2538392585774574175, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5383663964923248002, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
+      propertyPath: m_Name
+      value: defense
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d18d5e0eab68b4d489e01bc97a0e3bae, type: 3}
 --- !u!1 &83537533
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,10 +866,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2807485053053211794, guid: 6ae596473a2dd4b3bb57ec5344d86977, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5375725583448863914, guid: 6ae596473a2dd4b3bb57ec5344d86977, type: 3}
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6446791722695185658, guid: 6ae596473a2dd4b3bb57ec5344d86977, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3781413686461894816, guid: f032bc185f1d2234e914a3d4b14bf99e, type: 3}
     - target: {fileID: 6446791722695185658, guid: 6ae596473a2dd4b3bb57ec5344d86977, type: 3}
       propertyPath: m_SortingLayer
       value: 3
@@ -1508,6 +1573,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5015687227911602371, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
+      propertyPath: puckSR
+      value: 
+      objectReference: {fileID: 1459593786}
     - target: {fileID: 8492160583494350700, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
       propertyPath: m_Name
       value: Puck
@@ -1569,6 +1638,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
+--- !u!212 &1459593786 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 9404286764602393, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
+  m_PrefabInstance: {fileID: 1442751706}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1534126389
 GameObject:
   m_ObjectHideFlags: 0
@@ -5970,3 +6044,4 @@ SceneRoots:
   - {fileID: 1442751706}
   - {fileID: 1545278479}
   - {fileID: 657687696}
+  - {fileID: 1765759}
