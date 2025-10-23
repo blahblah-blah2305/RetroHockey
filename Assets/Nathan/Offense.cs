@@ -13,60 +13,135 @@ public class OffensivePlayer
 {
     private Movement movement;
     private string playerkey;
+    private StickLogic stickLogic;
 
-    public OffensivePlayer(string key, Movement mov)
+    private Vector2 targetGoalPosition = new Vector2(10f, 0f); //todo : change to handle turnovers
+
+    //variables to help aiming before shooting:
+    private bool prepshot = false;
+    private bool prepass = false;
+    private float actiontimer = 0f;
+    private Vector2 actionvector; // direction to aim
+    private const float prepptime = 0.2f; // how long im aiming for
+
+    public OffensivePlayer(string key, Movement mov, StickLogic stick)
     {
         playerkey = key;
         movement = mov;
+        stickLogic = stick;
     }
     public OffensivePlayer() { }
-    public void DecideAction(PositionHolder info)
+
+
+
+
+
+    public void DecideAction(PositionHolder info, float deltaTime)
     {
         var mydata = info.get(playerkey);
         if (mydata == null)
         {
             return; //stops stupid stinking race conditions i hate unity
         }
-        var allplayers = info.positions;
 
-        PositionHolder.PositionData target = null; //target is who we skate torwards
-                                                   //simple logic to find who to target, in this case its anyone who isnt us. 
+        Vector2 myposition = new Vector2(mydata.x, mydata.y);
 
+        if (prepshot || prepass) //keep moving if we are preparing to shoot or pass. 
+        {
+            movement.Move(actionvector);
+            actiontimer -= deltaTime;
+            if (actiontimer <= 0f)
+            {
+                if (prepshot)
+                {
+                    prepshot = false;
+                    stickLogic.performShot(0.1f, actionvector); // Shoot!   
+                }
+                else
+                {
+                    prepass = false;
+                    stickLogic.performPass(actionvector);
+                }
+
+            }
+            return;
+        }
+
+        if (mydata.hasPuck) //ai player has puck
+        {
+            decideonballaction(mydata, info);
+        }
+        else //ai player does not have puck
+        {
+            decideoffballaction(mydata, info);
+        }
+
+    }
+
+
+
+    private void decideonballaction(PositionHolder.PositionData mydata, PositionHolder info)
+    {
+        Vector2 myPosition = new Vector2(mydata.x, mydata.y);
+        float distanceToGoal = Vector2.Distance(myPosition, targetGoalPosition);
+        Vector2 directionToGoal = (targetGoalPosition - myPosition).normalized;
+
+        // 1. SHOOT LOGIC: If close to the goal, shoot.
+        if (distanceToGoal < 7f) // Arbitrary "shooting range"
+        {
+            Debug.Log(playerkey + " deciding to SHOOT!");
+            Execute(PuckActions.Shoot, directionToGoal); // Pass aim direction
+            return; // Action decided
+        }
+
+        // 2. PASS LOGIC: Find a teammate who is closer to the goal.
+        PositionHolder.PositionData passTarget = null;
+        foreach (var kvp in info.positions)
+        {
+            if (kvp.Key == playerkey) continue; // Skip self
+
+            // TODO: Add team-checking logic here!
+            Vector2 otherPlayerPos = new Vector2(kvp.Value.x, kvp.Value.y);
+            float targetDistToGoal = Vector2.Distance(otherPlayerPos, targetGoalPosition);
+
+            if (targetDistToGoal < distanceToGoal)
+            {
+                passTarget = kvp.Value;
+                break;
+            }
+        }
+
+        if (passTarget != null)
+        {
+            Debug.Log(playerkey + " deciding to PASS to " + passTarget.GetHashCode());
+            Vector2 passTargetPosition = new Vector2(passTarget.x, passTarget.y);
+            Execute(PuckActions.Pass, passTargetPosition); // Pass target *position*
+            return; // Action decided
+        }
+
+        // 3. MOVE LOGIC: If not shooting or passing, skate towards the goal.
+        Debug.Log(playerkey + " moving towards goal");
+        Execute(PuckActions.Move, directionToGoal);
+    }
+    
+    private void decideoffballaction(PositionHolder.PositionData mydata, PositionHolder info)
+    {
+        // ... (existing code, unchanged) ...
+        PositionHolder.PositionData target = null;
         foreach (var kvp in info.positions)
         {
             if (kvp.Key != playerkey)
             {
                 target = kvp.Value;
-                break;
+                break; 
             }
         }
 
-        if (target != null) //unity fix ur race conditions (im the problem)
+        if (target != null)
         {
-            // found other player now we hit them :D
             Vector2 direction = new Vector2(target.x - mydata.x, target.y - mydata.y).normalized;
             Execute(PuckActions.Move, direction);
         }
-        
-
-
-
-/* will put this back, just testing collisions
-                                if (mydata.hasPuck)
-                                {
-
-                                }
-                                else
-                                {
-                                    //normally else would be if the player doesnt have puck. rn just testing to make sure it skates torwards anyone else. 
-
-                                    //example play, keep comments for reference. 
-                                    //example, skate torwards puck (if puck location was implimented)
-                                    //Vector2 goalDirection = new Vector2(10f - data.x, 0f).normalized;
-                                    //Execute(PuckActions.Move, goalDirection);
-                                }
-                                */
-
     }
 
 
@@ -75,19 +150,23 @@ public class OffensivePlayer
         switch (action)
         {
             case PuckActions.Move:
+                prepshot = false;
+                prepass = false;
                 movement.Move(direction);
                 break;
             case PuckActions.Shoot:
                 Debug.Log("shooting!");
-                movement.Move(direction);
-                //player doesn't have to move far, they just start moving torwards goal
-                //will steal implimentation of puck shooting from dylan's player controls
+                prepshot = true;
+                prepass = false;
+                actiontimer = prepptime;
+                actionvector = direction;
                 break;
             case PuckActions.Pass:
                 Debug.Log("passing now");
-                movement.Move(direction);
-                //turn torwards player you want to pass to, doesnt need to move far.
-                //also will steal dylans implimentation when its up
+                prepshot = false;
+                prepass = true;
+                actiontimer = prepptime;
+                actionvector = direction;
                 break;
         }
 
