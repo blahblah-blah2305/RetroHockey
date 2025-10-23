@@ -8,32 +8,45 @@ public class Puck : MonoBehaviour
 	Transform owner;
 	Vector2 holdOffset = new Vector2(0.4f, -0.4f);
 	private PositionHolder positionHolder;
+	public SpriteRenderer puckSR;
 
 
 	void Awake(){
 		rigidbody2d = GetComponent<Rigidbody2D>();
 		col = GetComponent<Collider2D>();
 	}
-    void Update()
-    {
-		 if (owner == null) return;
-  
-        Vector2 ahead = (Vector2)owner.right;            
-        Vector2 pos = (Vector2)owner.position + ahead.normalized * holdOffset.x + Vector2.up * holdOffset.y;
-        transform.position = pos;
+void Update()
+{
+    if (owner == null) return;
 
-        rigidbody2d.linearVelocity = Vector2.zero;                       // freeze motion while held
-        rigidbody2d.angularVelocity = 0f;
-		//keeps track of puck position and velocity
-        if (positionHolder != null)
-        {
-            positionHolder.updatepuck(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, GetComponent<Rigidbody2D>().linearVelocity.x, GetComponent<Rigidbody2D>().linearVelocity.y);
-        }
-        else if (PositionHolder.Instance != null)
-        {
-            PositionHolder.Instance.updatepuck(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, GetComponent<Rigidbody2D>().linearVelocity.x, GetComponent<Rigidbody2D>().linearVelocity.y);
-        }
+    
+    SpriteRenderer ownerSR = owner.GetComponent<SpriteRenderer>();
+    float side;
+    if (ownerSR != null)
+        side = ownerSR.flipX ? 1f : -1f;       
+    else
+        side = Mathf.Sign(owner.localScale.x);   
+
+    // switches the puck sprite with the player
+    Vector2 pos = (Vector2)owner.position + new Vector2(Mathf.Abs(holdOffset.x) * side, holdOffset.y);
+    transform.position = pos;
+
+    // Freeze motion while held
+    rigidbody2d.linearVelocity = Vector2.zero;
+    rigidbody2d.angularVelocity = 0f;
+
+    if (puckSR != null && ownerSR != null)
+        puckSR.flipX = ownerSR.flipX;
+
+    if (positionHolder != null)
+    {
+        positionHolder.updatepuck(rigidbody2d.position.x, rigidbody2d.position.y, rigidbody2d.linearVelocity.x, rigidbody2d.linearVelocity.y);
     }
+    else if (PositionHolder.Instance != null)
+    {
+        PositionHolder.Instance.updatepuck(rigidbody2d.position.x, rigidbody2d.position.y, rigidbody2d.linearVelocity.x, rigidbody2d.linearVelocity.y);
+    }
+}
 
     public void SetPositionHolder(PositionHolder holder)
 	{
