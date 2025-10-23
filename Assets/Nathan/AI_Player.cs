@@ -18,8 +18,9 @@ public class O_Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         movement = new Movement(rb);
-        ologic = new OffensivePlayer(playerKey, movement, stick); // movement shouldnt be controlled here
         stick = new StickLogic();
+        ologic = new OffensivePlayer(playerKey, movement, stick); // movement shouldnt be controlled here
+ 
     }
     void Update()
     {

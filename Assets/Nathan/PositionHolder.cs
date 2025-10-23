@@ -86,5 +86,11 @@ public class PositionHolder : MonoBehaviour
         }
         return null;
     }
+    public Vector2 GetPuckPosition()
+    {
+        return new Vector2(puck.puckx, puck.pucky);
+
+    }
+
     
 }

@@ -126,22 +126,32 @@ public class OffensivePlayer
     
     private void decideoffballaction(PositionHolder.PositionData mydata, PositionHolder info)
     {
-        // ... (existing code, unchanged) ...
-        PositionHolder.PositionData target = null;
-        foreach (var kvp in info.positions)
-        {
-            if (kvp.Key != playerkey)
-            {
-                target = kvp.Value;
-                break; 
-            }
-        }
+    Vector2 myPosition = new Vector2(mydata.x, mydata.y);
+    
 
-        if (target != null)
+    //check if someone has the puck
+    PositionHolder.PositionData puckCarrier = info.playerwithpuck();
+
+    if (puckCarrier == null)
+    {
+            // move torwards puck
+
+            Vector2 puckPosition = info.GetPuckPosition();
+            Debug.Log(puckPosition);
+            Vector2 directionToPuck = (puckPosition - myPosition).normalized;
+            Execute(PuckActions.Move, directionToPuck);
+            //Debug.Log("gotorwardspuck");
+
+       
+    }
+    else
         {
-            Vector2 direction = new Vector2(target.x - mydata.x, target.y - mydata.y).normalized;
-            Execute(PuckActions.Move, direction);
-        }
+            //get open?
+            Debug.Log("getopen");
+        Vector2 carrierPosition = new Vector2(puckCarrier.x, puckCarrier.y);
+        Vector2 directionToCarrier = (carrierPosition - myPosition).normalized;
+        Execute(PuckActions.Move, directionToCarrier);
+    }
     }
 
 
