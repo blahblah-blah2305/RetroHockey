@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 41333809}
   - component: {fileID: 41333812}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Level View Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2368,16 +2368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e9da5af09eca164283bb06b67adb670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeftDefense
-  Speed: 5
-  CheckDamage: 0.7
-  HasPuck: 0
-  tChange: 0
-  RandomX: 0
-  RandomY: 0
-  MinX: -8
-  MaxX: 4
-  MinY: -4
-  MaxY: 4
 --- !u!1 &1858305526
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,6 +2972,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4349714326530131505, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5015687227911602371, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8492160583494350700, guid: 0f6cec554e498530da406e5ebe92ec91, type: 3}
       propertyPath: m_Name
       value: Puck

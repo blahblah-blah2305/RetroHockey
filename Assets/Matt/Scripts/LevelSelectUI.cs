@@ -1,4 +1,4 @@
-/*using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class levelSelectUI : MonoBehaviour{
@@ -10,11 +10,11 @@ public class levelSelectUI : MonoBehaviour{
 	//current ongoing scene loading operation
 	private AsyncOperation currentLoadOperation;
 
-void start(){
+void Start(){
 	DontDestroyOnLoad(gameObject);
 }
 
-void PlayCurrentLevel(){
+private void PlayCurrentLevel(){
 	//Deactivate the level view camera
 	levelViewCamera.SetActive(false);
 	//find player camera
@@ -24,7 +24,7 @@ void PlayCurrentLevel(){
 		Debug.LogError("Couldnt find the puck!");
 	}
 	else{
-		var playerScript = playerGobj.GetComponent<PuckScript>();
+		var playerScript = playerGobj.GetComponent<Puck>();
 		//get the player script attached and enable it
 		playerScript.enabled = true;
 		//through puck script access the camera GameObject
@@ -61,14 +61,14 @@ void OnGUI(){
 	}
 
 }
-
+/*
 void Update(){
 
 	//if current load operation and its done
 	if(currentLoadOperation != null && currentLoadOperation.isDone){
 		//NUll the load operation
 		currentLoadOperation = null;
-		levelViewCamera = Gameobject.Find("Level View Camera");
+		levelViewCamera = GameObject.Find("Level View Camera");
 		if (levelViewCamera == null){
 			Debug.LogError("NO level view camera found in the scene");
 		}
@@ -77,4 +77,22 @@ void Update(){
 	}
 
 } 
-}*/
+*/
+void Update()
+{
+    if (currentLoadOperation != null && currentLoadOperation.isDone)
+    {
+        Debug.Log("Level load complete, finding Level View Camera");
+        currentLoadOperation = null;
+        levelViewCamera = GameObject.Find("Level View Camera");
+        if (levelViewCamera == null)
+        {
+            Debug.LogError("NO level view camera found in the scene");
+        }
+        else
+        {
+            Debug.Log("Level View Camera found, active state: " + levelViewCamera.activeSelf);
+        }
+    }
+}
+}
