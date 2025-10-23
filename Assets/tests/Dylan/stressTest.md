@@ -1,4 +1,4 @@
-# ⚙️ Stress Test — ST-001: PlayerController Speed Stress with another colliding player
+# Stress Test — ST-001: PlayerController Speed Stress with another colliding player
 
 **Goal:**  
 Gradually increase the player’s movement speed until the system or boundaries fail or problems arise with the other player.
