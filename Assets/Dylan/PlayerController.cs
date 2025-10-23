@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private PlayerIntent intent = new PlayerIntent(); // prevents null ref 
     private IInputSource source; // where is the input coming from
 
+     private SpriteRenderer sr;
+
     public void SetInputSource(IInputSource inputSource) { source = inputSource; }
 
 
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Awake(){
             stick = new StickLogic(); 
             rb = GetComponent<Rigidbody2D>();
+            sr = GetComponent<SpriteRenderer>();
 
     }
 
@@ -32,11 +35,13 @@ public class PlayerController : MonoBehaviour
             Vector2 target = (Vector2)transform.position + intent.aim.normalized * 3f; // this is just basic for now so we can run it
             stick.performPass(target);
         } 
-        if(intent.move.x > 0.01f) transform.localScale = new Vector3(1,1,1);
-        if(intent.move.x < -0.01f) transform.localScale = new Vector3(-1,1,1);
+        if(intent.move.x > 0.01f) sr.flipX = false;
+        if(intent.move.x < -0.01f) sr.flipX = true;
 
 
-        if(intent.shotPressed) stick.performShot(intent.chargeTime, intent.aim);
+        if(intent.shotPressed){
+            stick.performShot(intent.chargeTime, intent.aim);
+        } 
     }
     void FixedUpdate(){
         movement.Move(intent.move); // gets the key input to move 
@@ -52,6 +57,7 @@ public class PlayerController : MonoBehaviour
     }
     public void ReleasePuck(){
         stick.ReleasePuck();
+        SMScript.I.PuckHit();
     }
 
 }

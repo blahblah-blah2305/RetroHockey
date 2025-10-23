@@ -37,10 +37,12 @@ public class Puck : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Playerscore")
 		{
+			SMScript.I.GoalHorn();
 			updatepuck(0, 0);
 		}
 		if (collision.gameObject.tag == "Enemy_score")
 		{
+			SMScript.I.GoalHorn();
 			updatepuck(0, 0);
 		}
 	}

@@ -79,6 +79,7 @@ public class Collisions
                 else
                 {
                     Debug.Log("big bad time for penalty");
+                    SMScript.I.Foul();
                     //updatepuck(x,y) need to get coords of each faceoff spot for penalties.
                     //will implement when reset logic is more advanced. also will go man down for 30 seconds. 
                 }
