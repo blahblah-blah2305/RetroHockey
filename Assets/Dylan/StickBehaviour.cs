@@ -6,17 +6,29 @@ public class StickBehaviour : MonoBehaviour // for getting the puck
 
     void OnTriggerEnter2D(Collider2D other){
         var puck = other.GetComponent<Puck>();
-        if(!puck) return;
+        if (!puck) return;
+
+        var playerHandler = GetComponentInParent<DefensivePlayer>();
+
+        if(playerHandler != null)
+        {
+            puck.SetOwner(playerHandler.transform);
+            playerHandler.AcquirePuck(puck);
+        }
         
-        puck.SetOwner(owner.transform);
-        owner.AcquirePuck(puck);
     }
 
     void OnTriggerExit2D(Collider2D other) {
         var puck = other.GetComponent<Puck>();
-        if(!puck) return; 
+        if (!puck) return; 
+        
+        var playerHandler = GetComponentInParent<DefensivePlayer>();
+
+        if(playerHandler != null)
+        {
             puck.ReleaseOwner();
-            owner.ReleasePuck();
+            playerHandler.ReleasePuck();
+        }
     }
 
 }
